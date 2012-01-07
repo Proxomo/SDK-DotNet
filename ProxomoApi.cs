@@ -76,17 +76,17 @@ namespace Proxomo
             }
         }
 
-        public ProxomoApi(string applicationID, string proxomoAPIKey, CommunicationType format = CommunicationType.JSON, bool validatessl = true, string url = "")
+        public ProxomoApi(string applicationID, string proxomoAPIKey, CommunicationType format = CommunicationType.JSON, bool validatessl = true, string url = "", Token token = null)
         {
-            Init(applicationID, proxomoAPIKey, "v09", format, validatessl, url);
+            Init(applicationID, proxomoAPIKey, "v09", format, validatessl, url, token);
         }
 
-        public ProxomoApi(string applicationID, string proxomoAPIKey, string version, CommunicationType format = CommunicationType.JSON, bool validatessl = true, string url = "")
+        public ProxomoApi(string applicationID, string proxomoAPIKey, string version, CommunicationType format = CommunicationType.JSON, bool validatessl = true, string url = "", Token token = null)
         {
-            Init(applicationID, proxomoAPIKey, version, format, validatessl, url);
+            Init(applicationID, proxomoAPIKey, version, format, validatessl, url, token);
         }
 
-        private void Init(string applicationID, string proxomoAPIKey, string version, CommunicationType format, bool validatessl, string url)
+        private void Init(string applicationID, string proxomoAPIKey, string version, CommunicationType format, bool validatessl, string url, Token token = null)
         {
             APIVersion = version;
             _applicationID = applicationID;
@@ -121,7 +121,17 @@ namespace Proxomo
                 }
             }
 
-            GetAuthToken();
+            if (token != null)
+            {
+                if (token.ExpiresDate <= DateTime.Now)
+                {
+                    GetAuthToken();
+                }
+            }
+            else
+            {
+                GetAuthToken();
+            }
         }
 
         private void GetAuthToken()
