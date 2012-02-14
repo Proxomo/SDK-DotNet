@@ -127,6 +127,10 @@ namespace Proxomo
                 {
                     GetAuthToken();
                 }
+                else
+                {
+                    AuthToken = token;
+                }
             }
             else
             {
@@ -257,7 +261,7 @@ namespace Proxomo
 
             using (ProxomoWebRequest<List<T>> p = new ProxomoWebRequest<List<T>>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
-                return p.GetData(url, "GET", contentType,"", ref cTokens);
+                return p.GetData(url, "GET", contentType, "", ref cTokens);
             }
 
         }
