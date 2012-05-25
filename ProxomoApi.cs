@@ -886,13 +886,13 @@ namespace Proxomo
             }
         }
 
-        public void SecurityPersonPasswordChange(string userName, string password, string resetToken)
+        public PersonLogin SecurityPersonPasswordChange(string userName, string password, string resetToken)
         {
             string url = string.Format("{0}/security/person/passwordchange?username={1}&password={2}&resettoken={3}", baseURL, userName, password, resetToken);
 
-            using (ProxomoWebRequest<bool> p = new ProxomoWebRequest<bool>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            using (ProxomoWebRequest<PersonLogin> p = new ProxomoWebRequest<PersonLogin>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
-                p.GetData(url, "PUT", contentType);
+                return p.GetData(url, "GET", contentType);
             }
         }
 
@@ -900,7 +900,7 @@ namespace Proxomo
         {
             string url = string.Format("{0}/security/person/update/role?personid={1}&role={2}", baseURL, personID, role);
 
-            using (ProxomoWebRequest<bool> p = new ProxomoWebRequest<bool>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
                 p.GetData(url, "PUT", contentType);
             }
