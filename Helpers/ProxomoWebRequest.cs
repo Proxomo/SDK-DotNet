@@ -140,13 +140,18 @@ namespace Proxomo
 				string result = sreader.ReadToEnd().Replace("<string>", "").Replace("</string>", "");
 				return (t)Convert.ChangeType(result, typeof(t));
 			}
-			else
-			{
-				DataContractSerializer ds = new DataContractSerializer(typeof(t));
-				t result = (t)(ds.ReadObject(sreader.BaseStream));
-				ds = null;
-				return result;
-			}
+            else if (typeof(t).Equals(typeof(int)))
+            {
+                int result = Convert.ToInt32(sreader.ReadToEnd().Replace("<int>", "").Replace("</int>", ""));
+				return (t)Convert.ChangeType(result, typeof(t));
+            }
+            else
+            {
+                DataContractSerializer ds = new DataContractSerializer(typeof(t));
+                t result = (t)(ds.ReadObject(sreader.BaseStream));
+                ds = null;
+                return result;
+            }
 		}
 
 		private t ReturnJSON(StreamReader sreader)

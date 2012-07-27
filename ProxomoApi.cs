@@ -223,6 +223,37 @@ namespace Proxomo
         }
         #endregion
 
+        #region Counter Methods
+
+        public Counter CounterGet(string id)
+        {
+            string url = string.Format("{0}/counters/{1}", baseURL, id);
+
+            using (ProxomoWebRequest<Counter> p = new ProxomoWebRequest<Counter>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            {
+                return p.GetData(url, "GET", contentType);
+            }
+        }
+        public int CounterIncrement(string countername, int increment)
+        {
+            string url = string.Format("{0}/counters/{1}/{2}", baseURL, countername, increment);
+
+            using (ProxomoWebRequest<int> p = new ProxomoWebRequest<int>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            {
+                return p.GetData(url, "POST", contentType);
+            }
+        }
+        public List<Counter> CountersGet(string[] keys)
+        {
+            string url = string.Format("{0}/counters", baseURL);
+
+            using (ProxomoWebRequest<List<Counter>> p = new ProxomoWebRequest<List<Counter>>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            {
+                return p.GetData(url, "POST", contentType, Converter.Convert<string[]>(keys, Format));
+            }
+        }
+        #endregion
+
         #region CustomDataStorage
 
         public string CustomDataAdd<T>(T data)
@@ -647,6 +678,16 @@ namespace Proxomo
         public List<Location> LocationsSearchByAddress(string address, string q = "", string category = "", double radius = 2, LocationSearchScope scope = LocationSearchScope.ApplicationOnly, int maxresults = 10, string personid = "")
         {
             string url = string.Format("{0}/locations/search", baseURL) + Utility.FormatQueryString(address, string.Empty, string.Empty, q, category, radius, scope, maxresults, personid);
+
+            using (ProxomoWebRequest<List<Location>> p = new ProxomoWebRequest<List<Location>>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            {
+                return p.GetData(url, "GET", contentType);
+            }
+
+        }
+        public List<Location> LocationsSearchByAddress(string locationtype)
+        {
+            string url = string.Format("{0}/locations/search/locationtype/{1}", baseURL, locationtype);
 
             using (ProxomoWebRequest<List<Location>> p = new ProxomoWebRequest<List<Location>>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {

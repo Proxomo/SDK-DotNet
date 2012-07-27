@@ -54,6 +54,7 @@
     <Compile Include="Definitions\AppData.cs" />
     <Compile Include="Definitions\Category.cs" />
     <Compile Include="Definitions\ContinuationTokens.cs" />
+    <Compile Include="Definitions\Counter.cs" />
     <Compile Include="Definitions\CustomDataStorageBase.cs" />
     <Compile Include="Definitions\Event.cs" />
     <Compile Include="Definitions\EventArgs.cs" />
