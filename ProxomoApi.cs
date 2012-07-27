@@ -685,7 +685,7 @@ namespace Proxomo
             }
 
         }
-        public List<Location> LocationsSearchByAddress(string locationtype)
+        public List<Location> LocationsSearchByLocationType(string locationtype)
         {
             string url = string.Format("{0}/locations/search/locationtype/{1}", baseURL, locationtype);
 
