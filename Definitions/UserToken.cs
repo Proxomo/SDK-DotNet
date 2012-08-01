@@ -8,5 +8,8 @@ namespace Proxomo
     {
         [DataMember(Name = "PersonID")]
         public string PersonID { get; set; }
+
+        [DataMember(Name = "Role")]
+        public string Role { get; set; }
     }
 }
