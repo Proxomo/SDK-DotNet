@@ -434,7 +434,7 @@ namespace Proxomo
         {
             string url = string.Format("{0}/event/{1}/participant/invite/personid/{2}", baseURL, eventID, personID);
 
-            using (ProxomoWebRequest<EventParticipant> p = new ProxomoWebRequest<EventParticipant>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
                 p.GetData(url, "PUT", contentType);
             }
@@ -457,7 +457,7 @@ namespace Proxomo
         {
             string url = string.Format("{0}/event/{1}/participant/{2}", baseURL, eventID, participantID);
 
-            using (ProxomoWebRequest<List<EventParticipant>> p = new ProxomoWebRequest<List<EventParticipant>>(AuthToken.AccessToken, ValidateSSLCert, Format))
+            using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
                 p.GetData(url, "DELETE", contentType);
             }
