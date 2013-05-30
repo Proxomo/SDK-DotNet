@@ -256,9 +256,9 @@ namespace Proxomo
 
         #region CustomDataStorage
 
-        public string CustomDataAdd<T>(T data)
+        public string CustomDataAdd<T>(T data, string partition = "")
         {
-            string url = string.Format("{0}/customdata", baseURL);
+            string url = string.Format("{0}/customdata?partition={1}", baseURL, partition);
 
             using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
@@ -266,9 +266,9 @@ namespace Proxomo
             }
         }
 
-        public string CustomDataUpdate<T>(T data)
+        public string CustomDataUpdate<T>(T data, string partition = "")
         {
-            string url = string.Format("{0}/customdata", baseURL);
+            string url = string.Format("{0}/customdata?partition={1}", baseURL, partition);
 
             using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
@@ -276,9 +276,9 @@ namespace Proxomo
             }
         }
 
-        public void CustomDataDelete(string tableName, string customDataID)
+        public void CustomDataDelete(string tableName, string customDataID, string partition = "")
         {
-            string url = string.Format("{0}/customdata/table/{1}/{2}", baseURL, tableName, customDataID);
+            string url = string.Format("{0}/customdata/table/{1}/{2}?partition={3}", baseURL, tableName, customDataID, partition);
 
             using (ProxomoWebRequest<string> p = new ProxomoWebRequest<string>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
@@ -286,26 +286,24 @@ namespace Proxomo
             }
         }
 
-        public List<T> CustomDataSearch<T>(string tableName, string query, int maxResults, ref ContinuationTokens cTokens)
+        public List<T> CustomDataSearch<T>(string tableName, string query, int maxResults, ref ContinuationTokens cTokens, string partition = "")
         {
-            string url = string.Format("{0}/customdata/search/table/{1}?q={2}&maxresults={3}", baseURL, tableName, query, maxResults);
+            string url = string.Format("{0}/customdata/search/table/{1}?q={2}&maxresults={3}&partition={4}", baseURL, tableName, query, maxResults, partition);
 
             using (ProxomoWebRequest<List<T>> p = new ProxomoWebRequest<List<T>>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
                 return p.GetData(url, "GET", contentType, "", ref cTokens);
             }
-
         }
 
-        public T CustomDataGet<T>(string tableName, string customDataID)
+        public T CustomDataGet<T>(string tableName, string customDataID, string partition = "")
         {
-            string url = string.Format("{0}/customdata/table/{1}/{2}", baseURL, tableName, customDataID);
+            string url = string.Format("{0}/customdata/table/{1}/{2}?partition={3}", baseURL, tableName, customDataID, partition);
 
             using (ProxomoWebRequest<T> p = new ProxomoWebRequest<T>(AuthToken.AccessToken, ValidateSSLCert, Format))
             {
                 return p.GetData(url, "GET", contentType);
             }
-
         }
 
         #endregion
